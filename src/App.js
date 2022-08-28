@@ -6,6 +6,8 @@ import Home from './Home';
 import Menu from './Menu';
 import Contact from './Contact';
 import About from './About';
+import Cart from './Cart';
+import CardDetail from './CardDetail';
 
 function App() {
   return (
@@ -14,8 +16,10 @@ function App() {
         <Route path='/' element={<Header />}>
           <Route index element={<Home />} />
           <Route path="/menu" element={<Menu />} />
+          <Route path="/:productId" element={<CardDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
       
