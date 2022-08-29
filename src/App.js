@@ -8,7 +8,7 @@ import Contact from './Contact';
 import About from './About';
 import Cart from './Cart';
 import CardDetail from './CardDetail';
-
+import Footer from './Footer';
 function App() {
   return (
     <div className='container'>
@@ -22,7 +22,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
-      
+      <Footer />
 
     </div>
   );

@@ -14,7 +14,7 @@ export default function Cards() {
   return (
     <section style={{width: "100%", backgroundColor: "#7f6698", display: "flex", justifyContent: "center", alignContent:"center", flexWrap: "wrap", flexDirection: "column"}}>
         <h1>The most popular</h1>
-        <div style={{width: "80%", display: "flex", flexWrap: "wrap", justifyContent:"space-around"}}>
+        <div style={{width: "80%", display: "flex", flexWrap: "wrap", justifyContent:"space-around", paddingBottom: 20}}>
         {arrayOfRandomCards.map((item,index)=>{
             return(
                 <Card key={index} image={item.image} name={item.name} price={item.price} id={item.id} />

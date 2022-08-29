@@ -7,11 +7,16 @@ export default function CardDetail() {
     let {productId} = useParams()
 
     let cardDetailInfo = data.find((product)=>{
-        return product.id === productId
+        return product.id == productId
     })
-    console.log(cardDetailInfo)
+    
 
   return (
-    <div>CardDetail</div>
+    <div>
+      <img src={cardDetailInfo.image} alt="" style={{width: 200, height: 200}} />
+      <h1>{cardDetailInfo.name}</h1>
+      <p>{cardDetailInfo.description}</p>
+      
+    </div>
   )
 }

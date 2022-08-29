@@ -1,6 +1,7 @@
 import React from 'react'
 import Slider from './Slider.js'
 import Cards from './Cards.js'
+
 export default function Home() {
   return (
     <>
