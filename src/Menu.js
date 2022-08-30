@@ -5,11 +5,12 @@ import SideDishCards from './SideDishCards'
 import DessertCards from './DessertCards'
 import DrinksCards from './DrinksCards'
 import AllCards from './AllCards'
-let data = require("./data.json")
 
+//ეს კომპონენტი მიბრუნებს სელექთს რომლის ველიუ იცვლება იმის მიხედვით თუ რომელი აირჩია იუზერმა და ასევე მიბრუნებს
+//ფუნქციას რომელიც იმის მიხედვით არენდერებს კომპონენტს თუ რომელი ოფშენი აირჩია იუზერმა
 export default function Menu() {
   const[value, setValue] = useState("all")
-  
+ 
  function randerCards(){
   if(value == "Main Dish"){
     return <MainDishCards />
@@ -23,12 +24,9 @@ export default function Menu() {
     return <AllCards />
    }
  }
- 
-
-  return (
-    
-    <section style={{width: "100%", backgroundColor: "#7f6698", display: "flex", justifyContent: "center", alignContent:"center", flexWrap: "wrap", flexDirection: "column", alignItems: "center"}}>
-      <select name="" id="" style={{width: 100}} value={value} onChange={(e)=>setValue(e.target.value)}>
+  return ( 
+    <section style={{width: "100%", display: "flex", justifyContent: "center", alignContent:"center", flexWrap: "wrap", flexDirection: "column", alignItems: "center"}}>
+      <select name="" id="" style={{width: 150, height: 30, border: "none", marginTop: 20, backgroundColor: "#ffd23f", borderRadius: 10}} value={value} onChange={(e)=>setValue(e.target.value)}>
         <option value="all">all</option>
         <option value="Main Dish">Main Dish</option>
         <option value="Side Dish">Side Dish</option>
@@ -36,13 +34,6 @@ export default function Menu() {
         <option value="Drinks">Drinks</option>
       </select>
       {randerCards()}
-        {/* {data.map((item)=>{
-          return <Card key={item.id} image={item.image} name={item.name} price={item.price} id={item.id} />
-        })
-          
-      }  */}
-       
-      
     </section>
   )
     

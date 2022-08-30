@@ -17,9 +17,9 @@ export default function Slider() {
             setIndex(0)
          }
          
-       },2000)
+       },3000)
     })
   return (
-    <div style={{width: "80%", height: '80vh', backgroundImage: `url("${images[index]}")`, transition: "all 0.3s", backgroundPosition: "center", backgroundSize: "cover"}}></div>
+    <div style={{width: "80%", height: '80vh', backgroundImage: `url("${images[index]}")`, backgroundPosition: "center", backgroundSize: "cover"}}></div>
   )
 }

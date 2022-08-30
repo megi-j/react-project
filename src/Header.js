@@ -5,7 +5,7 @@ import CartImage from './CartImage'
 export default function Header() {
   return (
     <>
-    <header style={{width: "100%", display: "flex", backgroundColor:"#7fb6a1", padding: 50, justifyContent: "space-between", alignItems: "center"}}>
+    <header style={{width: "100%", display: "flex", backgroundColor:"#3bceac", padding: 30, justifyContent: "space-between", alignItems: "center"}}>
       <Navigation />
       <CartImage />
     </header>
