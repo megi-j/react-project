@@ -14,8 +14,7 @@ export default function Cart() {
        
     })
     remove.status = "Add to cart"
-    console.log(remove)
-
+    
   }
   function clear(){
     data.map((item)=>{
@@ -36,7 +35,7 @@ export default function Cart() {
         <div style={{width: "80%", display: "flex", flexWrap: "wrap", justifyContent:"space-around", paddingBottom: 20}}>
           {data.map((item)=>{
             if(item.status == "Added"){
-              return <Card key={item.id} image={item.image} name={item.name} price={item.price} id={item.id} status = {status} statusChange={()=>removeCard(item.id)} />
+              return <Card key={item.id} image={item.image} name={item.name} price={item.price} id={item.id} cardStatus = {status} changeCardStatus={()=>removeCard(item.id)} />
             
             }
          })}
