@@ -21,9 +21,12 @@ export default function Cart() {
   function clear(){
     data.map((item)=>{
       if(item.status == "Added"){
-        item.status = "Add to cart"
+        return item.status = "Add to cart"
       }
+     
     })
+    productData.cartNumberReset()
+    
   }
   return (
     <section style={{width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>

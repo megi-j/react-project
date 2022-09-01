@@ -25,6 +25,9 @@ function encreaseCartNumber(){
 function decreaseCartNumber(){
   setCartNumber(cartNumber-1)
 }
+function resetCartNumber(){
+  setCartNumber(0)
+}
  function goToDollarCurrency(){
   setCurrency("$")
  }
@@ -53,7 +56,7 @@ function decreaseCartNumber(){
 
   }
   return (
-    <Context.Provider value={{productInfo: info, changeCardInfo: (e)=>change(e), valuta: currency, changeToDollarCurrency: ()=>goToDollarCurrency(), changeToLariCurrency: ()=>goToLariCurrency(), changeToDollar: ()=>goToDollar(), changeToLari: ()=>goToLari(), cartisRicxvi: cartNumber, cartisRicxvisGazrda: ()=>encreaseCartNumber(), cartisRicxvisShemcireba: ()=>decreaseCartNumber()}}>
+    <Context.Provider value={{productInfo: info, changeCardInfo: (e)=>change(e), valuta: currency, changeToDollarCurrency: ()=>goToDollarCurrency(), changeToLariCurrency: ()=>goToLariCurrency(), changeToDollar: ()=>goToDollar(), changeToLari: ()=>goToLari(), cartisRicxvi: cartNumber, cartisRicxvisGazrda: ()=>encreaseCartNumber(), cartisRicxvisShemcireba: ()=>decreaseCartNumber(), cartNumberReset: ()=>resetCartNumber()}}>
       <div className='container'>
           <Routes>
             <Route path='/' element={<Header />}>
