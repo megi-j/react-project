@@ -19,10 +19,12 @@ function App() {
   const[currency, setCurrency]=useState("$")
   const[cartNumber, setCartNumber]=useState(0)
 
-function changeCartNumber(){
+function encreaseCartNumber(){
   setCartNumber(cartNumber+1)
 }
-
+function decreaseCartNumber(){
+  setCartNumber(cartNumber-1)
+}
  function goToDollarCurrency(){
   setCurrency("$")
  }
@@ -45,14 +47,13 @@ function changeCartNumber(){
             
     })  
     addedStatusCards.status = "Added"
-    console.log(addedStatusCards)
     document.querySelector(`.btn-${cardId}`).setAttribute('disabled', '')
     setInfo(info)
-    changeCartNumber()
+    encreaseCartNumber()
 
   }
   return (
-    <Context.Provider value={{productInfo: info, changeCardInfo: (e)=>change(e), valuta: currency, changeToDollarCurrency: ()=>goToDollarCurrency(), changeToLariCurrency: ()=>goToLariCurrency(), changeToDollar: ()=>goToDollar(), changeToLari: ()=>goToLari(), cartisRicxvi: cartNumber, cartisRicxvisShecvla: ()=>changeCartNumber()}}>
+    <Context.Provider value={{productInfo: info, changeCardInfo: (e)=>change(e), valuta: currency, changeToDollarCurrency: ()=>goToDollarCurrency(), changeToLariCurrency: ()=>goToLariCurrency(), changeToDollar: ()=>goToDollar(), changeToLari: ()=>goToLari(), cartisRicxvi: cartNumber, cartisRicxvisGazrda: ()=>encreaseCartNumber(), cartisRicxvisShemcireba: ()=>decreaseCartNumber()}}>
       <div className='container'>
           <Routes>
             <Route path='/' element={<Header />}>

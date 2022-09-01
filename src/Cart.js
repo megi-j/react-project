@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Card from "./Card"
 import bin from "./images/bin.png"
 import {useState} from 'react'
-
+import {Context} from './Context'
 let data = require("./data.json")
 
 export default function Cart() {
   const[status, setStatus] = useState("remove")
+
+  const productData = useContext(Context);
 
   function removeCard(cardId){
     let remove = data.find((elem)=>{
@@ -14,7 +16,7 @@ export default function Cart() {
        
     })
     remove.status = "Add to cart"
-    
+    productData.cartisRicxvisShemcireba()
   }
   function clear(){
     data.map((item)=>{
