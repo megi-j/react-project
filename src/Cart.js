@@ -3,8 +3,8 @@ import Card2 from "./Card2"
 import bin from "./images/bin.png"
 import {useState} from 'react'
 import {Context} from './Context'
-let data = require("./data.json")
 
+let data = require("./data.json")
 export default function Cart() {
   const[status, setStatus] = useState("remove")
 
@@ -17,6 +17,7 @@ export default function Cart() {
     })
     remove.status = "Add to cart"
     productData.cartisRicxvisShemcireba()
+    productData.mtlianiFasisCvlileba()
   }
   function clear(){
     data.map((item)=>{
@@ -26,13 +27,14 @@ export default function Cart() {
      
     })
     productData.cartNumberReset()
-    
+    productData.mtlianiFasisCvlileba()
   }
+ 
   return (
     <section style={{width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
       <div style={{width: "100%",height: 40, display: "flex", justifyContent: "space-around", alignItems: "center", marginTop: 30}}>
         <h3>Total Items:{productData.totalItemsInCart}</h3>
-        <h3>Total Price:</h3>
+        <h3>Total Price:{productData.mtlianiFasi}</h3>
         <h3>Clear Cart 
           <img onClick={clear} style={{cursor:"pointer"}} src={bin} alt="bin"/>
         </h3>

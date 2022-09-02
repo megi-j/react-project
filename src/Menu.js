@@ -25,7 +25,7 @@ export default function Menu() {
    }
  }
   return ( 
-    <section style={{width: "100%", display: "flex", justifyContent: "center", alignContent:"center", flexWrap: "wrap", flexDirection: "column", alignItems: "center"}}>
+    <section style={{width: "100%", display: "flex", justifyContent: "center", alignContent:"center", flexWrap: "wrap", flexDirection: "column", alignItems: "center", backgroundColor: "#f8ffe5"}}>
       <select name="" id="" style={{width: 150, height: 30, border: "none", marginTop: 20, backgroundColor: "#ffd23f", borderRadius: 10}} value={value} onChange={(e)=>setValue(e.target.value)}>
         <option value="all">all</option>
         <option value="Main Dish">Main Dish</option>

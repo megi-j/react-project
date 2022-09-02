@@ -14,12 +14,14 @@ import { useState } from 'react';
 
 let data = require("./data.json")
 let count = 0
+
 function App() {
   const[info, setInfo]=useState(data)
   const[currency, setCurrency]=useState("$")
   const[cartNumber, setCartNumber]=useState(0)
   const[totalItems, setTotalItems]=useState(0)
   const[quantity, setQuantity]=useState(1)
+  const[totalPrice, setTotalPrice] = useState(0)
 
 function encreaseCartNumber(){
   setCartNumber(cartNumber+1)
@@ -50,8 +52,22 @@ function decreaseQuantity(cardId){
   }else{
     p.innerHTML = `quantity: ${1}`
   }
-  
-  
+}
+let arrayOfTotalPrice = []
+let x = 0;
+
+function changeTotalPrice(){
+  info.map((item)=>{
+    if(item.status == "Added"){
+      return arrayOfTotalPrice.push(item.price)
+    } 
+    
+  })
+  for(let i = 0; i < arrayOfTotalPrice.length; i++){
+    x+=arrayOfTotalPrice[i]
+  }
+  setTotalPrice(x)
+  console.log(totalPrice)
 }
  function goToDollarCurrency(){
   setCurrency("$")
@@ -79,9 +95,10 @@ function decreaseQuantity(cardId){
     setInfo(info)
     encreaseCartNumber()
     encreaseTotalItems()
+    changeTotalPrice()
   }
   return (
-    <Context.Provider value={{productInfo: info, changeCardInfo: (e)=>change(e), valuta: currency, changeToDollarCurrency: ()=>goToDollarCurrency(), changeToLariCurrency: ()=>goToLariCurrency(), changeToDollar: ()=>goToDollar(), changeToLari: ()=>goToLari(), cartisRicxvi: cartNumber, cartisRicxvisGazrda: ()=>encreaseCartNumber(), cartisRicxvisShemcireba: ()=>decreaseCartNumber(), cartNumberReset: ()=>resetCartNumber(), totalItemsInCart: totalItems, totalItemsGazrda: ()=>encreaseTotalItems(), raodenoba: quantity, raodenobisGazrda: (e)=> encreaseQuantity(e), raodenobisShemcireba: (e)=>decreaseQuantity(e)}}>
+    <Context.Provider value={{productInfo: info, changeCardInfo: (e)=>change(e), valuta: currency, changeToDollarCurrency: ()=>goToDollarCurrency(), changeToLariCurrency: ()=>goToLariCurrency(), changeToDollar: ()=>goToDollar(), changeToLari: ()=>goToLari(), cartisRicxvi: cartNumber, cartisRicxvisGazrda: ()=>encreaseCartNumber(), cartisRicxvisShemcireba: ()=>decreaseCartNumber(), cartNumberReset: ()=>resetCartNumber(), totalItemsInCart: totalItems, totalItemsGazrda: ()=>encreaseTotalItems(), raodenoba: quantity, raodenobisGazrda: (e)=> encreaseQuantity(e), raodenobisShemcireba: (e)=>decreaseQuantity(e), mtlianiFasi: totalPrice, mtlianiFasisCvlileba: ()=>changeTotalPrice()}}>
       <div className='container'>
           <Routes>
             <Route path='/' element={<Header />}>
