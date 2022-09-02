@@ -18,6 +18,8 @@ function App() {
   const[info, setInfo]=useState(data)
   const[currency, setCurrency]=useState("$")
   const[cartNumber, setCartNumber]=useState(0)
+  const[totalItems, setTotalItems]=useState(0)
+  const[quantity, setQuantity]=useState(1)
 
 function encreaseCartNumber(){
   setCartNumber(cartNumber+1)
@@ -27,6 +29,29 @@ function decreaseCartNumber(){
 }
 function resetCartNumber(){
   setCartNumber(0)
+}
+function encreaseTotalItems(){
+  setTotalItems(cartNumber+quantity)
+}
+function encreaseQuantity(cardId){
+//   let findClickedCard = info.find((elem)=>{  
+//     return elem.id == cardId
+       
+// })  
+
+  let p = document.querySelector(`.quant-${cardId}`)
+  p.innerHTML = `quantity: ${quantity+1}`
+  
+}
+function decreaseQuantity(cardId){
+  let p = document.querySelector(`.quant-${cardId}`)
+  if(quantity > 1){
+    p.innerHTML = `quantity: ${quantity-1}`
+  }else{
+    p.innerHTML = `quantity: ${1}`
+  }
+  
+  
 }
  function goToDollarCurrency(){
   setCurrency("$")
@@ -53,10 +78,10 @@ function resetCartNumber(){
     document.querySelector(`.btn-${cardId}`).setAttribute('disabled', '')
     setInfo(info)
     encreaseCartNumber()
-
+    encreaseTotalItems()
   }
   return (
-    <Context.Provider value={{productInfo: info, changeCardInfo: (e)=>change(e), valuta: currency, changeToDollarCurrency: ()=>goToDollarCurrency(), changeToLariCurrency: ()=>goToLariCurrency(), changeToDollar: ()=>goToDollar(), changeToLari: ()=>goToLari(), cartisRicxvi: cartNumber, cartisRicxvisGazrda: ()=>encreaseCartNumber(), cartisRicxvisShemcireba: ()=>decreaseCartNumber(), cartNumberReset: ()=>resetCartNumber()}}>
+    <Context.Provider value={{productInfo: info, changeCardInfo: (e)=>change(e), valuta: currency, changeToDollarCurrency: ()=>goToDollarCurrency(), changeToLariCurrency: ()=>goToLariCurrency(), changeToDollar: ()=>goToDollar(), changeToLari: ()=>goToLari(), cartisRicxvi: cartNumber, cartisRicxvisGazrda: ()=>encreaseCartNumber(), cartisRicxvisShemcireba: ()=>decreaseCartNumber(), cartNumberReset: ()=>resetCartNumber(), totalItemsInCart: totalItems, totalItemsGazrda: ()=>encreaseTotalItems(), raodenoba: quantity, raodenobisGazrda: (e)=> encreaseQuantity(e), raodenobisShemcireba: (e)=>decreaseQuantity(e)}}>
       <div className='container'>
           <Routes>
             <Route path='/' element={<Header />}>
