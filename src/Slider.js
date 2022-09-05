@@ -2,6 +2,7 @@ import img from './images/1.webp'
 import img1 from './images/2.jpg'
 import img2 from './images/3.webp'
 import img3 from './images/4.png'
+
 import {useState, useEffect} from 'react'
 
 let images = [img, img1, img2, img3]
@@ -9,8 +10,7 @@ let images = [img, img1, img2, img3]
 export default function Slider() {
     const[index, setIndex] = useState(0)
     useEffect(()=>{
-    
-       setInterval(()=>{
+      let x = setInterval(()=>{
          if(index < images.length-1){
             setIndex(index+1)
          }else{
@@ -18,6 +18,7 @@ export default function Slider() {
          }
          
        },3000)
+       return (()=>{clearInterval(x)})
     })
   return (
     <div style={{width: "80%", height: '80vh', backgroundImage: `url("${images[index]}")`, backgroundPosition: "center", backgroundSize: "cover"}}></div>

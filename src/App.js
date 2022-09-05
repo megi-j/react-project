@@ -16,101 +16,130 @@ let data = require("./data.json")
 let count = 0
 
 function App() {
-  const[info, setInfo]=useState(data)
-  const[currency, setCurrency]=useState("$")
-  const[cartNumber, setCartNumber]=useState(0)
-  const[totalItems, setTotalItems]=useState(0)
-  const[quantity, setQuantity]=useState(1)
-  const[totalPrice, setTotalPrice] = useState(0)
+  const[info, setInfo]=useState(data)  //ამ სტეიტში ინახება მთლიანი მონაცემები
+  const[currency, setCurrency]=useState("$") //ამ სტეიტში ინახება ვალუტა რომელიც ჰედერში ხატია,ხან დოლარი ხან ლარი
+  const[cartNumber, setCartNumber]=useState(0) //აქ არის კალათაზე დახატული ციფრი, რომელიც იცვლება იმის მიხედვით თუ რამდენი პროდუქტი იქნება არჩეული
+  const[totalItems, setTotalItems]=useState(0) //აქ ინახება კალათაში გადასვლისას მთლიანი პროდუქტების ჯამი, არამარტო კატეგორიების მიხედვით არამედ რაოდენობების ჯამიც
+  const[quantity, setQuantity]=useState(1) //აქ ვინახავ რაოდენობას თითოეული ქარდის
+  const[totalPrice, setTotalPrice] = useState(0) //აქ ვინახავ მთლიან ფასს ყველა ქარდის რომელიც კალათის თავშია
+  const[disabled, setIsDisabled] = useState(true) 
+  const[isClicked, setIsClicked] = useState(false)
+ 
+  //ფუნქციები
 
-function encreaseCartNumber(){
-  setCartNumber(cartNumber+1)
-}
-function decreaseCartNumber(){
-  setCartNumber(cartNumber-1)
-}
-function resetCartNumber(){
-  setCartNumber(0)
-}
-function encreaseTotalItems(){
-  setTotalItems(cartNumber+quantity)
-}
-function encreaseQuantity(cardId){
-//   let findClickedCard = info.find((elem)=>{  
-//     return elem.id == cardId
-       
-// })  
-
-  let p = document.querySelector(`.quant-${cardId}`)
-  p.innerHTML = `quantity: ${quantity+1}`
-  
-}
-function decreaseQuantity(cardId){
-  let p = document.querySelector(`.quant-${cardId}`)
-  if(quantity > 1){
-    p.innerHTML = `quantity: ${quantity-1}`
-  }else{
-    p.innerHTML = `quantity: ${1}`
-  }
-}
-let arrayOfTotalPrice = []
-let x = 0;
-
-function changeTotalPrice(){
-  info.map((item)=>{
-    if(item.status == "Added"){
-      return arrayOfTotalPrice.push(item.price)
-    } 
-    
-  })
-  for(let i = 0; i < arrayOfTotalPrice.length; i++){
-    x+=arrayOfTotalPrice[i]
-  }
-  setTotalPrice(x)
-  console.log(totalPrice)
-}
- function goToDollarCurrency(){
-  setCurrency("$")
- }
-  
-  function goToLariCurrency(){
-    setCurrency("₾")
-  }
-  function goToDollar(){
-    info.map((item)=>console.log(item))
+  function encreaseCartNumber(){
+    setCartNumber(cartNumber+1)
+  }  //მიზრდის კალათის რიცხვს
+  function decreaseCartNumber(){
+    setCartNumber(cartNumber-1)
+  }  //მიმცირებს კალათის რიცხვს
+  function resetCartNumber(){
+    setCartNumber(0)
+    setTotalItems(0)
+  } //მინულებს როგორც კალათის რიცხვს ასევე მთლიანი აითემების რიცხვს
+  function encreaseTotalItems(){
+    setTotalItems(totalItems + 1)
+  } //მიზრდის კალათაში მთლიანი აითემების რიცხვს
+  function decreaseTotalItems(quant){
+    setTotalItems(totalItems - quant)
+  } //მიმცირებს კალათაში მთლიანი აითემების რიცხვს იმდენით რა რაოდენობასაც გადავცემთ
+  function encreaseQuantity(cardId){
+    let findClickedCard = info.find((elem)=>{  
+      return elem.id == cardId     
+    })  
+    findClickedCard.quantity += 1
+    if(isClicked == true){
+      setIsClicked(false)
+    }else{
+      setIsClicked(true)
     }
+    encreaseTotalItems()
+    changeTotalPrice()
+  } //ვპოულობთ რომელ ქარდის + ღილაკზე მოხდა კლიკი და იმ ქარდის რაოდენობას ვზრდით 1 ით,ასევე ვიძახებ მთლიანი აითემების გზარდის ფუნქციას და მთლიანი ფასის ცვლილების ფუნქციას, რომელიც თითოეულ ქარდზეა
+  function decreaseQuantity(cardId){
+    let findClickedCard = info.find((elem)=>{  
+      return elem.id == cardId     
+    })  
+    if(findClickedCard.quantity > 1){
+      findClickedCard.quantity -= 1
+      decreaseTotalItems(1)
+    }
+    if(isClicked == true){
+      setIsClicked(false)
+    }else{
+      setIsClicked(true)
+    }   
+  } //ვპოულობთ რომელ ქარდის - ღილაკზე მოხდა კლიკი და იმ ქარდის რაოდენობას ვამცირებთ 1 ით,ასევე ვიძახებ მთლიანი აითემების შემცირების ფუნქციას 
 
-  function goToLari(){
-    setInfo(...info, info.map((item)=>item.price*=3))
-    
-  }
+  let arrayOfTotalPrice = []
+  let sumOfPrices = 0;
 
+  function changeTotalPrice(){
+    info.map((item)=>{
+      if(item.status == "Added"){
+        return arrayOfTotalPrice.push(item.price)
+      } 
+    })
+    for(let i = 0; i < arrayOfTotalPrice.length; i++){
+      sumOfPrices+=arrayOfTotalPrice[i]
+    }
+    setTotalPrice(sumOfPrices)   
+  } //ამ ფუნქციით ვცვლი კალათაში რო თავში მთლიანი ფასია მაგის მნიშვნელობას,ცარიელ მასივში ვყრი ყველა აითემის ფასს რომლის სტატუსია added, და შემდეგ ვაჯამებ და ეს ჯამი ხდება მთლიანი ფასის მნიშვნელობა
+  function changeCurrency(){
+    if(currency == "$"){
+      setCurrency("₾")
+    }else{
+      setCurrency("$")
+    }
+  } //აქ ვცვლი ვალუტის მნიშვნელობას, თუ დოლარი ხატია უნდა გახდეს ლარი და პირიქით, ამ ფუნქციას გამოვიძახებ ვალუტის ნიშანზე კლიკის დროს
   function change(cardId){
     let addedStatusCards = info.find((elem)=>{  
-         return elem.id == cardId
-            
+      return elem.id == cardId          
     })  
     addedStatusCards.status = "Added"
+    addedStatusCards.quantity = quantity
     document.querySelector(`.btn-${cardId}`).setAttribute('disabled', '')
     setInfo(info)
     encreaseCartNumber()
     encreaseTotalItems()
-    changeTotalPrice()
-  }
+    changeTotalPrice()  
+  }//ყველაზე მნიშვნელოვანი ფუნქციაა,რომელიც დაკლიკულ ქარდს უცვლის სტატუსს,ასევე დაკლიკული ქარდის ობიექტში ამატებს ახალ ფროფერტის quantity-ს და სტატუსის აღმნიშვნელ ღილაკს ხდის არააქტიურს, ასევე ვზრდით კალათის რიცხვს,მთლიანი აიტემების რიცხვს და კალათაში არსებული მთლიანი ფასიც იცვლება
+  
   return (
-    <Context.Provider value={{productInfo: info, changeCardInfo: (e)=>change(e), valuta: currency, changeToDollarCurrency: ()=>goToDollarCurrency(), changeToLariCurrency: ()=>goToLariCurrency(), changeToDollar: ()=>goToDollar(), changeToLari: ()=>goToLari(), cartisRicxvi: cartNumber, cartisRicxvisGazrda: ()=>encreaseCartNumber(), cartisRicxvisShemcireba: ()=>decreaseCartNumber(), cartNumberReset: ()=>resetCartNumber(), totalItemsInCart: totalItems, totalItemsGazrda: ()=>encreaseTotalItems(), raodenoba: quantity, raodenobisGazrda: (e)=> encreaseQuantity(e), raodenobisShemcireba: (e)=>decreaseQuantity(e), mtlianiFasi: totalPrice, mtlianiFasisCvlileba: ()=>changeTotalPrice()}}>
+    //აქ არის კონტექსტი რომელსაც ვატან სტეიტიდან ამოღებულ ინფოს და ასევე ზემოთ განსაზღვრულ ფუნქციებს
+    <Context.Provider value={{
+      productInfo: info, 
+      changeCardInfo: (e)=>change(e), 
+      valuta: currency, 
+      valutisCvlileba: ()=>changeCurrency(),
+      cartisRicxvi: cartNumber,
+      cartisRicxvisGazrda: ()=>encreaseCartNumber(),  
+      cartisRicxvisShemcireba: ()=>decreaseCartNumber(), 
+      cartNumberReset: ()=>resetCartNumber(),
+      totalItemsInCart: totalItems, 
+      totalItemsGazrda: ()=>encreaseTotalItems(), 
+      totalItemsShemcireba: (e)=>decreaseTotalItems(e),
+      raodenoba: quantity, 
+      raodenobisGazrda: (e)=> encreaseQuantity(e),
+      raodenobisShemcireba: (e)=>decreaseQuantity(e), 
+      mtlianiFasi: totalPrice,
+      mtlianiFasisCvlileba: ()=>changeTotalPrice(),
+      gamochena: disabled,
+      daklikulia: isClicked
+     
+    }}> 
       <div className='container'>
-          <Routes>
-            <Route path='/' element={<Header />}>
-              <Route index element={<Home />} />
-              <Route path="/menu" element={<Menu />} />
-              <Route path="/:productId" element={<CardDetail />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/cart" element={<Cart />} />
-            </Route>
-          </Routes>
-          <Footer />
+        <Routes>
+          <Route path='/' element={<Header />}>
+            <Route index element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/:productId" element={<CardDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/cart" element={<Cart />} />
+          </Route>
+        </Routes>
+        <Footer />
       </div>
     </Context.Provider>
   );

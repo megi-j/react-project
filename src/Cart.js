@@ -5,6 +5,7 @@ import {useState} from 'react'
 import {Context} from './Context'
 
 let data = require("./data.json")
+
 export default function Cart() {
   const[status, setStatus] = useState("remove")
 
@@ -15,9 +16,12 @@ export default function Cart() {
        return elem.id == cardId
        
     })
+    console.log(remove)
     remove.status = "Add to cart"
     productData.cartisRicxvisShemcireba()
     productData.mtlianiFasisCvlileba()
+    productData.totalItemsShemcireba(remove.quantity)
+    console.log(remove.quantity)
   }
   function clear(){
     data.map((item)=>{
@@ -34,15 +38,19 @@ export default function Cart() {
     <section style={{width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
       <div style={{width: "100%",height: 40, display: "flex", justifyContent: "space-around", alignItems: "center", marginTop: 30}}>
         <h3>Total Items:{productData.totalItemsInCart}</h3>
-        <h3>Total Price:{productData.mtlianiFasi}</h3>
+        <h3>Total Price:{productData.mtlianiFasi}{productData.valuta == "$" ? "$" : "₾"}</h3>
         <h3>Clear Cart 
           <img onClick={clear} style={{cursor:"pointer"}} src={bin} alt="bin"/>
         </h3>
       </div>
         <div style={{width: "80%", display: "flex", flexWrap: "wrap", justifyContent:"space-around", paddingBottom: 20}}>
-          {data.map((item)=>{
+          {productData.productInfo.map((item)=>{
             if(item.status == "Added"){
-              return <Card2 key={item.id} image={item.image} name={item.name} price={item.price} id={item.id} cardStatus = {status} changeCardStatus={()=>removeCard(item.id)} raodenobisGazrda={()=>{productData.raodenobisGazrda(item.id)}} raodenobisShemcireba={()=>{productData.raodenobisShemcireba(item.id)}} />
+             
+              return <Card2 key={item.id} image={item.image} name={item.name} price={productData.valuta == "$" ? item.price : item.price * 3} id={item.id} cardStatus = {status} changeCardStatus={()=>removeCard(item.id)} raodenobisGazrda={()=>{productData.raodenobisGazrda(item.id)}} raodenobisShemcireba={()=>{productData.raodenobisShemcireba(item.id)}} 
+              totalPrice={productData.valuta == "$" ? item.price * item.quantity : item.price * 3 * item.quantity} 
+
+              raodenoba={item.quantity} />
             
             }
          })}
