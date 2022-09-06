@@ -83,8 +83,30 @@ function App() {
     for(let i = 0; i < arrayOfTotalPrice.length; i++){
       sumOfPrices+=arrayOfTotalPrice[i]
     }
-    setTotalPrice(sumOfPrices)   
+   
+    if(currency == "$"){
+      setTotalPrice(sumOfPrices * 3)
+     
+    }else if(currency == "₾"){
+      setTotalPrice(sumOfPrices)
+      
+    }
+    
+   
   } //ამ ფუნქციით ვცვლი კალათაში რო თავში მთლიანი ფასია მაგის მნიშვნელობას,ცარიელ მასივში ვყრი ყველა აითემის ფასს რომლის სტატუსია added, და შემდეგ ვაჯამებ და ეს ჯამი ხდება მთლიანი ფასის მნიშვნელობა
+  let firstTotalPrice = []
+  let x = 0;
+  function firstlyChangeTotalPrice(){
+    info.map((item)=>{
+      if(item.status == "Added"){
+         return firstTotalPrice.push(item.price)
+      }
+    })
+    for(let i = 0; i < firstTotalPrice.length; i++){
+      x+=firstTotalPrice[i]
+    }
+    setTotalPrice(x)
+  }
   function changeCurrency(){
     if(currency == "$"){
       setCurrency("₾")
@@ -102,7 +124,7 @@ function App() {
     setInfo(info)
     encreaseCartNumber()
     encreaseTotalItems()
-    changeTotalPrice()  
+    firstlyChangeTotalPrice() 
   }//ყველაზე მნიშვნელოვანი ფუნქციაა,რომელიც დაკლიკულ ქარდს უცვლის სტატუსს,ასევე დაკლიკული ქარდის ობიექტში ამატებს ახალ ფროფერტის quantity-ს და სტატუსის აღმნიშვნელ ღილაკს ხდის არააქტიურს, ასევე ვზრდით კალათის რიცხვს,მთლიანი აიტემების რიცხვს და კალათაში არსებული მთლიანი ფასიც იცვლება
   
   return (

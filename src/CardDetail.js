@@ -17,7 +17,7 @@ export default function CardDetail() {
     //აქ ვხატავ დეტალურ ინფოს იმ ქარდისას, რომლის detail ღილაკზეც მოხდა კლიკი
     <div style={{width: "100%", height: "70vh", display: "flex", justifyContent: "space-around"}}>
       <img src={cardDetailInfo.image} alt="" style={{width: "50%", borderRadius: 10}} />
-      <div style={{display: "flex", flexDirection: "column",justifyContent: "space-around", alignItem: "center", alignContent: "space-between", marginLeft: 20}}>
+      <div style={{display: "flex", flexDirection: "column",justifyContent: "space-around", alignItem: "center", alignContent: "space-between", paddingLeft: 20, backgroundColor: "#f8ffe5"}}>
         <h1 style={{fontWeight: "bold"}}>{cardDetailInfo.name}</h1>
         <p>{cardDetailInfo.description}</p>
         <h4>Price: {productData.valuta == "$" ? cardDetailInfo.price : cardDetailInfo.price * 3}{productData.valuta}</h4>
