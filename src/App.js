@@ -165,7 +165,7 @@ function App() {
     }}> 
       <div className='container'>
         <Routes>
-          <Route path='/' element={<Header />}>
+          <Route path='/react-project/' element={<Header />}>
             <Route index element={<Home />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/:productId" element={<CardDetail />} />

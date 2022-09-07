@@ -21,7 +21,11 @@ export default function CardDetail() {
         <h1 style={{fontWeight: "bold"}}>{cardDetailInfo.name}</h1>
         <p>{cardDetailInfo.description}</p>
         <h4>Price: {productData.valuta == "$" ? cardDetailInfo.price : cardDetailInfo.price * 3}{productData.valuta}</h4>
-        <button style={{width: "30%", height: 40, border: "none", backgroundColor: "#06d6a0", borderRadius: 10, cursor: "pointer"}} onClick={()=>navigate('/menu')}>go to menu</button>
+        <div style={{width: "100%", display: "flex", justifyContent: "space-between"}}>
+          <button style={{width: "30%", height: 40, border: "none", backgroundColor: "#06d6a0", borderRadius: 10, cursor: "pointer"}} onClick={()=>navigate('/menu')}>go to menu</button>
+          <button className={`btn-${cardDetailInfo.id}`} onClick={()=>{productData.changeCardInfo(cardDetailInfo.id)}} style={{width: "30%", height: 40, border: "none", backgroundColor: "#06d6a0", borderRadius: 10, cursor: "pointer"}}>{cardDetailInfo.status}</button>
+        </div>
+        
       </div>  
     </div>
   )
