@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {Context} from './Context'
+
 //ეს კომპონენტი მიხატავს 1 ცალ ქარდს, რომლის მონაცემებიც პროპსად აქვს მშობლისგან გადმოწოდებული
 export default function Card(props) {
     let navigate = useNavigate()

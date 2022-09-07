@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Card from './Card'
 import MainDishCards from './MainDishCards'
 import SideDishCards from './SideDishCards'
 import DessertCards from './DessertCards'
@@ -35,6 +34,5 @@ export default function Menu() {
       </select>
       {randerCards()}
     </section>
-  )
-    
+  )    
 }

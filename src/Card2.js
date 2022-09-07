@@ -1,6 +1,8 @@
 import React, {useContext} from 'react'
 import { Context } from './Context';
 
+
+//აქ ვხატავ, პროპსების და კონტექსტის დახმარებით, იმ ქარდებს რომლების კალათაში მოთავსდება
 export default function Card2(props) {
     const productData = useContext(Context); 
   return (

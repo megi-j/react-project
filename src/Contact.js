@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import sent from './images/send-data.png'
+
 export default function Contact() {
   const [name, setName]=useState("")
   const [email, setEmail]=useState("")

@@ -13,7 +13,6 @@ import {Context} from './Context'
 import { useState } from 'react';
 
 let data = require("./data.json")
-let count = 0
 
 function App() {
   const[info, setInfo]=useState(data)  //ამ სტეიტში ინახება მთლიანი მონაცემები
@@ -54,7 +53,7 @@ function App() {
       setIsClicked(true)
     }
     encreaseTotalItems()
-    changeTotalPrice()
+    setTotalPrice(totalPrice + findClickedCard.price)
   } //ვპოულობთ რომელ ქარდის + ღილაკზე მოხდა კლიკი და იმ ქარდის რაოდენობას ვზრდით 1 ით,ასევე ვიძახებ მთლიანი აითემების გზარდის ფუნქციას და მთლიანი ფასის ცვლილების ფუნქციას, რომელიც თითოეულ ქარდზეა
   function decreaseQuantity(cardId){
     let findClickedCard = info.find((elem)=>{  
@@ -69,7 +68,21 @@ function App() {
     }else{
       setIsClicked(true)
     }   
+    setTotalPrice(totalPrice - findClickedCard.price)
   } //ვპოულობთ რომელ ქარდის - ღილაკზე მოხდა კლიკი და იმ ქარდის რაოდენობას ვამცირებთ 1 ით,ასევე ვიძახებ მთლიანი აითემების შემცირების ფუნქციას 
+
+  function removeCard(cardId){
+    let findRemovedCard = info.find((elem)=>{
+      return elem.id == cardId
+    })
+    findRemovedCard.status = "Add to cart"
+    decreaseCartNumber()
+    decreaseTotalItems(findRemovedCard.quantity)
+
+    let removeCardisTotalPrice = findRemovedCard.price * findRemovedCard.quantity
+    setTotalPrice(totalPrice - removeCardisTotalPrice)
+  }//ვპოულობ რომელი ქარდის remove ღილაკზე მოხდა კლიკი და ვშლი კალათიდან,ასევე ვიძახებ მთლიანი აითემების რაოდენობის შემცირების ფუნქციას და კალათის რიცხვის შემცირების ფუნქციას
+
 
   let arrayOfTotalPrice = []
   let sumOfPrices = 0;
@@ -91,8 +104,7 @@ function App() {
       setTotalPrice(sumOfPrices)
       
     }
-    
-   
+      
   } //ამ ფუნქციით ვცვლი კალათაში რო თავში მთლიანი ფასია მაგის მნიშვნელობას,ცარიელ მასივში ვყრი ყველა აითემის ფასს რომლის სტატუსია added, და შემდეგ ვაჯამებ და ეს ჯამი ხდება მთლიანი ფასის მნიშვნელობა
   let firstTotalPrice = []
   let x = 0;
@@ -147,7 +159,8 @@ function App() {
       mtlianiFasi: totalPrice,
       mtlianiFasisCvlileba: ()=>changeTotalPrice(),
       gamochena: disabled,
-      daklikulia: isClicked
+      daklikulia: isClicked,
+      cardisWashla: (e)=>removeCard(e)
      
     }}> 
       <div className='container'>
