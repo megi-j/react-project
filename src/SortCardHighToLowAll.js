@@ -2,11 +2,18 @@ import React, { useContext } from 'react'
 import Card from './Card'
 import { Context } from './Context'
 
-let data = require("./data.json")
-//ამ კომპონენტში მიხატავს ყველა ქარდს
-export default function AllCards() {
- 
-  const productData = useContext(Context);
+export default function SortCardHighToLowAll() {
+    const productData = useContext(Context);
+
+    productData.productInfo.sort((a, b)=>{
+        if(a.price > b.price){
+            return -1
+        }else if(a.price < b.price){
+            return 1
+        }else{
+            return 0
+        }
+       })
   return (
     <div style={{width: "80%", display: "flex", flexWrap: "wrap", justifyContent:"space-around", paddingBottom: 20}}>
     {productData.productInfo.map((item)=>{
@@ -14,5 +21,5 @@ export default function AllCards() {
         })
     }    
    </div>
-  )     
+  )
 }

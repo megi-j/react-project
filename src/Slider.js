@@ -21,6 +21,6 @@ export default function Slider() {
        return (()=>{clearInterval(x)})
     })
   return (
-    <div style={{width: "80%", height: '80vh', backgroundImage: `url("${images[index]}")`, backgroundPosition: "center", backgroundSize: "cover"}}></div>
+    <div style={{width: "100%", height: '80vh', backgroundImage: `url("${images[index]}")`, backgroundPosition: "center", backgroundSize: "cover"}}></div>
   )
 }
