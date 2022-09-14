@@ -19,7 +19,7 @@ export default function Card2(props) {
         <div style={{width: "100%", display: "flex", justifyContent: "space-around",marginBottom: 10}}>
             <button style={{border: "none", borderRadius: 10, backgroundColor: "#f8ffe5", width: 30, height: 30, cursor: "pointer", fontWeight: "bold"}} onClick={()=>{props.raodenobisGazrda()}}>+</button>
             <p className={`quant-${props.id}`}>quantity: {props.raodenoba}</p>
-            <button style={{border: "none", borderRadius: 10, backgroundColor: "#f8ffe5", width: 30, height: 30, cursor: "pointer", fontWeight: "bold"}} onClick={()=>props.raodenobisShemcireba()}>-</button>
+            <button className={`minus-${props.id}`} style={{border: "none", borderRadius: 10, backgroundColor: "#f8ffe5", width: 30, height: 30, cursor: "pointer", fontWeight: "bold"}} onClick={()=>props.raodenobisShemcireba()}>-</button>
         </div>
     </div>
   )

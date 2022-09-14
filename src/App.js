@@ -47,28 +47,46 @@ function App() {
       return elem.id == cardId     
     })  
     findClickedCard.quantity += 1
+
     if(isClicked == true){
       setIsClicked(false)
     }else{
       setIsClicked(true)
     }
     encreaseTotalItems()
+
+   if(currency == "₾"){
+    setTotalPrice(totalPrice + findClickedCard.price * 3)
+   }else if(currency == "$"){
     setTotalPrice(totalPrice + findClickedCard.price)
+   }
+    
+    
+   
+    
   } //ვპოულობთ რომელ ქარდის + ღილაკზე მოხდა კლიკი და იმ ქარდის რაოდენობას ვზრდით 1 ით,ასევე ვიძახებ მთლიანი აითემების გზარდის ფუნქციას და მთლიანი ფასის ცვლილების ფუნქციას, რომელიც თითოეულ ქარდზეა
   function decreaseQuantity(cardId){
     let findClickedCard = info.find((elem)=>{  
       return elem.id == cardId     
     })  
     if(findClickedCard.quantity > 1){
+      
       findClickedCard.quantity -= 1
       decreaseTotalItems(1)
+    }else if(findClickedCard.quantity == 1){
+      document.querySelector(`.minus-cardId`).setAttribute("disabled", "")
     }
+
     if(isClicked == true){
       setIsClicked(false)
     }else{
       setIsClicked(true)
     }   
-    setTotalPrice(totalPrice - findClickedCard.price)
+    if(currency == "₾"){
+      setTotalPrice(totalPrice - findClickedCard.price * 3)
+     }else if(currency == "$"){
+      setTotalPrice(totalPrice - findClickedCard.price)
+     }
   } //ვპოულობთ რომელ ქარდის - ღილაკზე მოხდა კლიკი და იმ ქარდის რაოდენობას ვამცირებთ 1 ით,ასევე ვიძახებ მთლიანი აითემების შემცირების ფუნქციას 
 
   function removeCard(cardId){
@@ -104,14 +122,17 @@ function App() {
       setTotalPrice(sumOfPrices)
       
     }
+    console.log(sumOfPrices)
       
   } //ამ ფუნქციით ვცვლი კალათაში რო თავში მთლიანი ფასია მაგის მნიშვნელობას,ცარიელ მასივში ვყრი ყველა აითემის ფასს რომლის სტატუსია added, და შემდეგ ვაჯამებ და ეს ჯამი ხდება მთლიანი ფასის მნიშვნელობა
   let firstTotalPrice = []
   let x = 0;
   function firstlyChangeTotalPrice(){
     info.map((item)=>{
-      if(item.status == "Added"){
-         return firstTotalPrice.push(item.price)
+      if(item.status == "Added" && currency == "$"){
+        return firstTotalPrice.push(item.price)
+      }else if(item.status == "Added" && currency == "₾"){
+        return firstTotalPrice.push(item.price * 3)
       }
     })
     for(let i = 0; i < firstTotalPrice.length; i++){
